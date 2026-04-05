@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZippBite — Delivered at the Speed of Craving</title>
+  <meta name="description" content="ZippBite: ultrafast food delivery, engineered for speed." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap"
+    rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!--  CINEMATIC OVERLAYS  -->
+  <div class="grain"></div>
+  <div class="vignette"></div>
+
+  <!--  LOADER  -->
+  <div id="loader">
+    <div class="loader-streaks">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="loader-inner">
+      <div class="loader-glow"></div>
+      <svg class="loader-logo" viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lg0" x1="0" y1="0" x2="200" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FF5722" />
+            <stop offset="100%" stop-color="#FFD600" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M1,3 L25,3 L25,11 L19,22 L23,22 L23,26 L9,26 L3,37 L27,37 L27,45 L1,45 L1,37 L15,26 L11,26 L11,22 L17,22 Z"
+          fill="url(#lg0)" />
+        <text x="31" y="40" font-family="'Clash Display',sans-serif" font-weight="700" font-size="34"
+          fill="url(#lg0)">ipp</text>
+        <text x="99" y="41" font-family="'Clash Display',sans-serif" font-weight="700" font-size="38"
+          fill="url(#lg0)">Bite</text>
+      </svg>
+      <div class="loader-bar-wrap">
+        <div id="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!--  NAV  -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo-link">
+      <svg class="zippbite-logo logo-nav" viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lgN" x1="0" y1="0" x2="200" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FF5722" />
+            <stop offset="100%" stop-color="#FFD600" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M1,3 L25,3 L25,11 L19,22 L23,22 L23,26 L9,26 L3,37 L27,37 L27,45 L1,45 L1,37 L15,26 L11,26 L11,22 L17,22 Z"
+          fill="url(#lgN)" />
+        <text x="31" y="40" font-family="'Clash Display',sans-serif" font-weight="700" font-size="34"
+          fill="url(#lgN)">ipp</text>
+        <text x="99" y="41" font-family="'Clash Display',sans-serif" font-weight="700" font-size="38"
+          fill="url(#lgN)">Bite</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#howitworks">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#stats">Story</a></li>
+      <li><a href="#join">Get Started</a></li>
+    </ul>
+    <a href="#" data-auth="open" class="btn btn-ghost nav-cta">Order Now</a>
+  </nav>
+
+  <!--  1. HERO  -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-noise"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow reveal">
+        <span class="dot-pulse"></span>Live in 24 cities · Delivering now
+      </div>
+      <h1 class="hero-headline">
+        <span class="line">Food, at the</span>
+        <span class="line grad-text">Speed of Craving</span>
+      </h1>
+      <p class="hero-sub reveal">Hot meals. Real speed. Zero compromise.</p>
+      <div class="hero-actions">
+        <a href="#" data-auth="open" class="btn btn-primary btn-magnetic" id="cta-main">
+          <span class="btn-text">Order Now</span>
+          <i data-lucide="arrow-right" class="btn-icon"></i>
+        </a>
+        <a href="#problem" class="btn btn-ghost reveal">See the story</a>
+      </div>
+      <div class="hero-trust reveal">
+        <span><i data-lucide="star" class="icon-xs"></i>4.9 App Store</span>
+        <span class="vdiv"></span>
+        <span>12M+ customers</span>
+        <span class="vdiv"></span>
+        <span>Free first delivery</span>
+      </div>
+    </div>
+    <div class="hero-scroll-hint reveal">
+      <i data-lucide="chevrons-down" class="icon-sm"></i>
+    </div>
+  </section>
+
+  <!--  2. PROBLEM  -->
+  <section id="problem">
+    <div class="problem-inner container">
+      <p class="problem-label">The Problem</p>
+      <h2 class="problem-headline">
+        <div class="line"><span class="word">It's</span> <span class="word">11 pm.</span></div>
+        <div class="line"><span class="word">You're</span> <span class="word">starving.</span></div>
+        <div class="line problem-accent"><span class="word">Everything</span> <span class="word">takes</span> <span
+            class="word">forever.</span></div>
+      </h2>
+      <div class="problem-facts">
+        <div class="problem-fact">
+          <span class="fact-num">38</span>
+          <span class="fact-label">minutes. Average delivery in your city.</span>
+        </div>
+        <div class="problem-fact">
+          <span class="fact-num">Cold.</span>
+          <span class="fact-label">That's how your food usually arrives.</span>
+        </div>
+        <div class="problem-fact">
+          <span class="fact-num">0</span>
+          <span class="fact-label">places that feel built for you. Until now.</span>
+        </div>
+      </div>
+    </div>
+    <div class="problem-glow"></div>
+  </section>
+
+  <!--  3. SOLUTION  -->
+  <section id="solution">
+    <div class="solution-beam"></div>
+    <div class="container solution-inner">
+      <p class="solution-eyebrow reveal-up">Introducing</p>
+      <div class="solution-logo-wrap reveal-up">
+        <svg class="solution-logo" viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lgS" x1="0" y1="0" x2="200" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FF5722" />
+              <stop offset="100%" stop-color="#FFD600" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M1,3 L25,3 L25,11 L19,22 L23,22 L23,26 L9,26 L3,37 L27,37 L27,45 L1,45 L1,37 L15,26 L11,26 L11,22 L17,22 Z"
+            fill="url(#lgS)" />
+          <text x="31" y="40" font-family="'Clash Display',sans-serif" font-weight="700" font-size="34"
+            fill="url(#lgS)">ipp</text>
+          <text x="99" y="41" font-family="'Clash Display',sans-serif" font-weight="700" font-size="38"
+            fill="url(#lgS)">Bite</text>
+        </svg>
+      </div>
+      <h2 class="solution-headline reveal-up">
+        Delivery reimagined.<br>
+        <span class="grad-text">18 minutes. Always hot.</span>
+      </h2>
+      <p class="solution-sub reveal-up">AI-dispatched. Thermally sealed. Built for humans who don't compromise.</p>
+    </div>
+  </section>
+
+
+  <section id="howitworks">
+    <div class="how-sticky">
+      <div class="how-progress-bar">
+        <div id="how-fill"></div>
+      </div>
+
+      <!-- Animated Path -->
+      <svg class="how-path-svg" viewBox="0 0 100 800" preserveAspectRatio="none">
+        <path id="how-path-line" d="M 50,0 Q 80,200 50,400 T 50,800" fill="none" stroke="url(#hpGrad)" stroke-width="2"
+          stroke-dasharray="1000" stroke-dashoffset="1000" />
+        <defs>
+          <linearGradient id="hpGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FF5722" />
+            <stop offset="100%" stop-color="#FFD600" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="how-step" data-step="0">
+        <div class="how-icon-wrap"><i data-lucide="smartphone" class="how-icon"></i></div>
+        <span class="how-count">01</span>
+        <h3 class="how-title">Browse & Choose</h3>
+        <p class="how-body">Hundreds of restaurants. Curated by your taste. Add to cart in seconds—our AI already knows
+          what you love.</p>
+      </div>
+
+      <div class="how-step" data-step="1">
+        <div class="how-icon-wrap"><i data-lucide="cpu" class="how-icon"></i></div>
+        <span class="how-count">02</span>
+        <h3 class="how-title">AI Assigns a Rider</h3>
+        <p class="how-body">Our dispatch engine analyses 200+ data points in under 80ms. The nearest, fastest rider is
+          assigned before you close the menu.</p>
+      </div>
+
+      <div class="how-step" data-step="2">
+        <div class="how-icon-wrap"><i data-lucide="activity" class="how-icon"></i></div>
+        <span class="how-count">03</span>
+        <h3 class="how-title">Watch It Move</h3>
+        <p class="how-body">Cinematic live tracking. Watch your rider navigate the city in real time—every turn, every
+          signal, every second.</p>
+        <div class="how-track-demo">
+          <div class="track-path">
+            <div class="track-rider"><i data-lucide="bike" class="rider-icon"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="how-step" data-step="3">
+        <div class="how-icon-wrap"><i data-lucide="home" class="how-icon"></i></div>
+        <span class="how-count">04</span>
+        <h3 class="how-title">Door in 18 Minutes</h3>
+        <p class="how-body">Thermal-sealed. Still hot. Still perfect. That's not a promise—that's our guarantee. Late?
+          It's free.</p>
+      </div>
+
+      <div class="how-visual">
+        <div class="how-ring how-ring-1"></div>
+        <div class="how-ring how-ring-2"></div>
+        <div class="how-orb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!--  5. FEATURE CARDS  -->
+  <section id="features">
+    <div class="cards-sticky">
+      <div class="cards-label">
+        <span class="section-eyebrow">Why ZippBite</span>
+        <h2 class="cards-heading">Features that<br><span class="grad-text">feel different</span></h2>
+      </div>
+      <div class="cards-stage">
+        <div class="card-item glass-card tilt-card" data-idx="0">
+          <div class="card-glow-edge" style="--glow:#FF5722"></div>
+          <div class="ci-icon"><i data-lucide="zap"></i></div>
+          <h3>Lightning Dispatch</h3>
+          <p>Rider assigned in 80ms. Not a typo. Our infrastructure runs faster than you can blink.</p>
+          <div class="ci-tag">Speed</div>
+        </div>
+        <div class="card-item glass-card tilt-card" data-idx="1">
+          <div class="card-glow-edge" style="--glow:#FF7A2F"></div>
+          <div class="ci-icon"><i data-lucide="radar"></i></div>
+          <h3>Live Radar Tracking</h3>
+          <p>Not a status update. A cinematic live map showing your rider's every move in real time.</p>
+          <div class="ci-tag">Tracking</div>
+        </div>
+        <div class="card-item glass-card tilt-card" data-idx="2">
+          <div class="card-glow-edge" style="--glow:#FFD600"></div>
+          <div class="ci-icon"><i data-lucide="thermometer"></i></div>
+          <h3>Temperature Sealed</h3>
+          <p>Phase-change thermal lining keeps food at 72°C minimum. Engineering meets your appetite.</p>
+          <div class="ci-tag">Quality</div>
+        </div>
+        <div class="card-item glass-card tilt-card" data-idx="3">
+          <div class="card-glow-edge" style="--glow:#8B5CF6"></div>
+          <div class="ci-icon"><i data-lucide="moon"></i></div>
+          <h3>Night Owl Mode</h3>
+          <p>24/7 operations. Premium late-night menus. Midnight biryani isn't a craving—it's a right.</p>
+          <div class="ci-tag">Always On</div>
+        </div>
+        <div class="card-item glass-card tilt-card" data-idx="4">
+          <div class="card-glow-edge" style="--glow:#10B981"></div>
+          <div class="ci-icon"><i data-lucide="gem"></i></div>
+          <h3>ZippBite Premium</h3>
+          <p>Zero fees. Priority lanes. Exclusive chef tables. The app rewires your relationship with food.</p>
+          <div class="ci-tag">Premium</div>
+        </div>
+      </div>
+      <div class="cards-dots">
+        <span class="dot active" data-i="0"></span>
+        <span class="dot" data-i="1"></span>
+        <span class="dot" data-i="2"></span>
+        <span class="dot" data-i="3"></span>
+        <span class="dot" data-i="4"></span>
+      </div>
+    </div>
+  </section>
+
+  <!--  6. 3D NETWORK SECTION  -->
+  <section id="scene3d">
+    <canvas id="network-canvas"></canvas>
+    <div class="orb-content container">
+      <p class="section-eyebrow reveal-up">The Engine</p>
+      <h2 class="orb-heading reveal-up">Speed is not<br><span class="grad-text">an accident</span></h2>
+      <p class="orb-sub reveal-up">Under the hood: a distributed AI dispatch system, real-time geofencing, and a network
+        of 40,000+ trained riders. This is what 18 minutes looks like from the inside.</p>
+    </div>
+  </section>
+
+  <!--  7. STATS  -->
+  <section id="stats">
+    <div class="container">
+      <div class="stats-label">
+        <p class="section-eyebrow">By the Numbers</p>
+        <h2 class="section-title">Proof, not<br><span class="grad-text">promises</span></h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card glass-card">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar" style="--p:84%"></div>
+          </div>
+          <div class="stat-num" data-target="12" data-suffix="M+">0</div>
+          <div class="stat-label">Customers served</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar" style="--p:65%"></div>
+          </div>
+          <div class="stat-num" data-target="18" data-suffix=" min">0</div>
+          <div class="stat-label">Avg delivery time</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar" style="--p:92%"></div>
+          </div>
+          <div class="stat-num" data-target="500" data-suffix="+">0</div>
+          <div class="stat-label">Restaurant partners</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar" style="--p:98%"></div>
+          </div>
+          <div class="stat-num" data-target="4.9" data-suffix="★">0</div>
+          <div class="stat-label">App rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--  8. WEB CTA  -->
+  <section id="join">
+    <div class="container join-inner">
+      <div class="join-copy">
+        <p class="section-eyebrow">The Future</p>
+        <h2 class="section-title">Ready to<br><span class="grad-text">stop waiting?</span></h2>
+        <p class="join-sub">Join ZippBite web now. Get ₹200 off your first order. Millions of users already upgraded
+          their cravings.</p>
+        <div class="join-actions">
+          <button data-auth="open" class="btn btn-primary btn-magnetic">
+            <span class="btn-text">Create Account</span>
+            <i data-lucide="arrow-right" class="btn-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--  FOOTER  -->
+  <footer id="footer">
+    <div class="container footer-inner">
+      <svg class="zippbite-logo logo-footer" viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lgF" x1="0" y1="0" x2="200" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FF5722" />
+            <stop offset="100%" stop-color="#FFD600" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M1,3 L25,3 L25,11 L19,22 L23,22 L23,26 L9,26 L3,37 L27,37 L27,45 L1,45 L1,37 L15,26 L11,26 L11,22 L17,22 Z"
+          fill="url(#lgF)" />
+        <text x="31" y="40" font-family="'Clash Display',sans-serif" font-weight="700" font-size="34"
+          fill="url(#lgF)">ipp</text>
+        <text x="99" y="41" font-family="'Clash Display',sans-serif" font-weight="700" font-size="38"
+          fill="url(#lgF)">Bite</text>
+      </svg>
+      <p class="footer-copy">© 2026 ZippBite Technologies. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!--  AUTH MODAL  -->
+  <div id="auth-modal" class="auth-modal">
+    <div class="auth-backdrop" data-auth="close"></div>
+    <div class="auth-card glass-card">
+      <button class="auth-close" data-auth="close"><i data-lucide="x"></i></button>
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login">Log In</div>
+        <div class="auth-tab" data-tab="signup">Sign Up</div>
+        <div class="auth-tab-slider"></div>
+      </div>
+      <div class="auth-forms-wrap">
+        <!-- LOGIN FORM -->
+        <form id="form-login" class="auth-form active">
+          <h3 class="auth-title">Welcome back</h3>
+          <p class="auth-desc">Enter your details to access your dashboard.</p>
+          <div class="form-group">
+            <input type="email" id="login-email" class="form-input" placeholder=" " required>
+            <label for="login-email" class="floating-label">Email or Phone</label>
+          </div>
+          <div class="form-group">
+            <input type="password" id="login-pass" class="form-input" placeholder=" " required>
+            <label for="login-pass" class="floating-label">Password</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-magnetic">Continue</button>
+        </form>
+        <!-- SIGNUP FORM -->
+        <form id="form-signup" class="auth-form">
+          <h3 class="auth-title">Join ZippBite</h3>
+          <p class="auth-desc">Create your premium account in seconds.</p>
+          <div class="form-group">
+            <input type="text" id="sign-name" class="form-input" placeholder=" " required>
+            <label for="sign-name" class="floating-label">Full Name</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="sign-email" class="form-input" placeholder=" " required>
+            <label for="sign-email" class="floating-label">Email or Phone</label>
+          </div>
+          <div class="form-group">
+            <input type="password" id="sign-pass" class="form-input" placeholder=" " required>
+            <label for="sign-pass" class="floating-label">Password</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-magnetic">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

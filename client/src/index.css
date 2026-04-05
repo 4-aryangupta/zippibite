@@ -1,0 +1,324 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap');
+
+
+/* ── ZippBite Design Tokens (matches main site exactly) ── */
+:root {
+  --bg:           #060608;
+  --bg2:          #0c0c14;
+  --bg3:          #111118;
+  --orange:       #FF5722;
+  --orange-dim:   rgba(255,87,34,0.15);
+  --gold:         #FFD600;
+  --accent:       #FF5722;
+  --white:        #fff;
+  --text:         rgba(255,255,255,0.88);
+  --text-sub:     rgba(255,255,255,0.50);
+  --text-muted:   rgba(255,255,255,0.25);
+  --glass-bg:     rgba(255,255,255,0.04);
+  --glass-bg2:    rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.08);
+  --border-hot:   rgba(255,87,34,0.35);
+  --radius:       20px;
+  --radius-sm:    12px;
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --transition:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Global resets ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+  cursor: none; /* custom cursor handles this on all React pages */
+}
+
+/* Force native cursor off on all interactive elements — custom cursor handles hover */
+a, button, input, textarea, select, label,
+[role="button"], [tabindex] {
+  cursor: none !important;
+}
+
+/* ── Scrollbar hide utility ─────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Glass card ─────────────────────────────────────── */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  will-change: transform;           /* pre-promote for hover lifts */
+  contain: layout style;
+}
+
+/* ── Gradient text ──────────────────────────────────── */
+.grad-text {
+  background: linear-gradient(135deg, var(--orange) 0%, #FF7A2F 40%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Primary button ─────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange), #FF7A2F 50%, var(--gold));
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: 0 0 30px rgba(255,87,34,0.4), 0 4px 24px rgba(0,0,0,0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(255,87,34,0.7), 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* ── Ghost button ───────────────────────────────────── */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-sub);
+  border: 1px solid var(--glass-border);
+  border-radius: 99px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+/* ── Floating label input ─────────────────────────── */
+.form-group { position: relative; }
+.form-input {
+  width: 100%;
+  padding: 18px 20px 8px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: rgba(255,255,255,0.03);
+  color: var(--white);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  transition: var(--transition);
+  outline: none;
+}
+.form-input:focus {
+  background: rgba(255,87,34,0.04);
+  border-color: var(--border-hot);
+  box-shadow: 0 0 0 3px rgba(255,87,34,0.1);
+}
+.floating-label {
+  position: absolute;
+  left: 20px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: var(--transition);
+  transform-origin: left top;
+}
+.form-input:focus ~ .floating-label,
+.form-input:not(:placeholder-shown) ~ .floating-label {
+  top: 14px;
+  transform: translateY(0) scale(0.72);
+  color: var(--orange);
+}
+
+/* ── Veg / Non-veg badge ───────────────────────────── */
+.veg-badge {
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  border: 1.5px solid;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.veg-badge.veg { border-color: #1ec41e; }
+.veg-badge.veg::after {
+  content: ''; width: 6px; height: 6px;
+  border-radius: 50%; background: #1ec41e;
+}
+.veg-badge.nonveg { border-color: #e53e3e; }
+.veg-badge.nonveg::after {
+  content: ''; width: 6px; height: 6px;
+  border-radius: 50%; background: #e53e3e;
+}
+
+/* ── Section eyebrow ─────────────────────────────── */
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+/* ── Cuisine pill ────────────────────────────────── */
+.cuisine-pill {
+  padding: 9px 20px;
+  border-radius: 99px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  color: var(--text-sub);
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.cuisine-pill:hover { border-color: rgba(255,255,255,0.18); color: var(--text); }
+.cuisine-pill.active {
+  background: rgba(255,87,34,0.12);
+  border-color: rgba(255,87,34,0.45);
+  color: var(--orange);
+  box-shadow: 0 0 16px rgba(255,87,34,0.2);
+}
+
+/* ── Reel card ─────────────────────────────────── */
+.reel-card {
+  width: 200px; height: 355px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+  cursor: pointer;
+  will-change: transform;
+  contain: layout style paint;     /* isolate reel card from layout thrash */
+}
+.reel-card:hover {
+  transform: scale(1.04) translateY(-4px);
+  border-color: rgba(255,87,34,0.4);
+  box-shadow: 0 0 30px rgba(255,87,34,0.25), 0 20px 60px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+/* ── Star rating ────────────────────────────────── */
+.star { color: #FFD600; }
+
+/* ── Toast notification ─────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(15,15,20,0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,87,34,0.3);
+  border-radius: 99px;
+  padding: 12px 26px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0;
+  transition: var(--transition);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Scrollbar style ─────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ════════════════════════════════════════
+   RESPONSIVE — Dashboard / App pages
+   ════════════════════════════════════════ */
+
+/* ── Tablet ≤1024px ─────────────────── */
+@media (max-width: 1024px) {
+  /* Reel cards: allow horizontal scroll but limit card width */
+  .reel-card { width: 180px; height: 320px; }
+
+  /* Glass-card grids */
+  .grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Stat bars overflow protection */
+  body { overflow-x: hidden; }
+}
+
+/* ── Mobile ≤768px ──────────────────── */
+@media (max-width: 768px) {
+  body { overflow-x: hidden; }
+
+  /* Reel section - smaller cards on mobile */
+  .reel-card { width: 155px; height: 276px; border-radius: 14px; }
+
+  /* Dashboard layout — stack sidebar over content */
+  .dashboard-layout { flex-direction: column; }
+  .sidebar { position: fixed; bottom: 0; left: 0; right: 0; top: auto !important;
+             flex-direction: row; height: 60px; width: 100%; border-top: 1px solid var(--glass-border);
+             border-right: none; z-index: 200; overflow-x: auto; }
+
+  /* All grids become single column */
+  .grid-3, .grid-2 { grid-template-columns: 1fr !important; }
+
+  /* Form inputs — friendly tap targets */
+  .form-input { padding: 16px 18px 6px; font-size: 1rem; min-height: 52px; }
+  .floating-label { left: 18px; }
+
+  /* Buttons — full width CTAs */
+  .btn-primary, .btn-ghost { min-height: 48px; }
+
+  /* Auth modal card padding handled by component inline styles */
+
+  /* Toast position */
+  .toast { bottom: 80px; /* above mobile nav bar */ }
+}
+
+/* ── Small mobile ≤480px ────────────── */
+@media (max-width: 480px) {
+  /* Reel cards even smaller */
+  .reel-card { width: 140px; height: 250px; border-radius: 12px; }
+
+  /* Glass cards */
+  .glass-card { border-radius: 16px; padding: 16px !important; }
+
+  /* Reduce backdrop blur cost on low-end mobile */
+  .glass-card, .glass-card * {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Typography scale */
+  h1 { font-size: clamp(1.8rem, 8vw, 2.4rem) !important; }
+  h2 { font-size: clamp(1.4rem, 6vw, 1.8rem) !important; }
+}
+
+/* ── Touch devices: replace hover with active ─── */
+@media (hover: none) {
+  .btn-primary:hover, .btn-ghost:hover { transform: none; }
+  .btn-primary:active  { transform: scale(0.97); }
+  .reel-card:hover     { transform: none; }
+  .reel-card:active    { transform: scale(0.98); }
+  .glass-card:hover    { transform: none; }
+  .glass-card:active   { transform: scale(0.98); }
+}
+
+/* ── Reduced-motion ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
